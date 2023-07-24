@@ -37,6 +37,32 @@ let jokes = [
 // serve back static files
 app.use(express.static('server/public'));
 
+// get to send back modified jokes array
+app.get('/jokes', (req, res) => {
+  console.log('in get')
+  res.send(jokes)
+})
+
+// post to receive the joke input from client
+app.post('/jokes', (req, res) => {
+  console.log('in post', req.body)
+
+  let newJoke = req.body
+
+  // const teller = req.body.whoseJoke
+  // const question = req.body.jokeQuestion
+  // const punchLine = req.body.punchLine
+
+  // push new joke input to the joke array
+jokes.push(newJoke)
+console.log('joke after push: ', jokes)
+
+res.sendStatus(201)
+})
+
+
+
+
 app.listen(PORT, () => {
   console.log('server running on: ', PORT);
 }); // end spin up server
